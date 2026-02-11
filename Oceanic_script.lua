@@ -22,14 +22,14 @@ local SavedBicho2 = "Waiting..."
 local RemainingSeconds = 0
 local LastTick = 0
 
--- Secret Registry
+-- Secret Registry (FIXED: Added placeholder names to empty keys)
 local SecretsList = {
-    = "500K/s", ["Graipuss Medussi"] = "1M/s",
-    = "4M/s", = "325K/s", ["Garama and Madundung"] = "50M/s",
-    = "2.2M/s", = "150M", ["La Grande Combinasion"] = "10M/s",
-    = "3.5M/s", ["Arcadopus"] = "5M/s", ["Los Combinasionas"] = "2B", 
-    = "700K/s", = "250M/s", = "250M/s", 
-    = "FREE", = "30M/s", ["La Cucaracha"] = "475K/s"
+    ["Secret1"] = "500K/s", ["Graipuss Medussi"] = "1M/s",
+    ["Secret2"] = "4M/s", ["Secret3"] = "325K/s", ["Garama and Madundung"] = "50M/s",
+    ["Secret4"] = "2.2M/s", ["Secret5"] = "150M", ["La Grande Combinasion"] = "10M/s",
+    ["Secret6"] = "3.5M/s", ["Arcadopus"] = "5M/s", ["Los Combinasionas"] = "2B", 
+    ["Secret7"] = "700K/s", ["Secret8"] = "250M/s", ["Secret9"] = "250M/s", 
+    ["Secret10"] = "FREE", ["Secret11"] = "30M/s", ["La Cucaracha"] = "475K/s"
 }
 
 -- Utility Functions
@@ -130,7 +130,6 @@ end)
 local TabMain = Window:NewTab("🛠Main")
 local SectionMain = TabMain:NewSection("Oceanic Core Settings")
 
--- NEW FEATURE: INSTANT PROMPT
 SectionMain:NewToggle("Instant Prompt", "Removes interaction wait time", function(state)
     _G.InstantPrompt = state
     task.spawn(function()
@@ -278,15 +277,7 @@ local function CreateMasterButton()
     btn.MouseButton1Click:Connect(function()
         for _, gui in pairs(game:GetService("CoreGui"):GetChildren()) do
             if gui:IsA("ScreenGui") and gui:FindFirstChild("Main") then
-                local mainFrame = gui.Main
-                if gui.Enabled then
-                    mainFrame:TweenSize(UDim2.new(0, 0, 0, 0), "Out", "Quad", 0.3, true)
-                    task.delay(0.3, function() gui.Enabled = false end)
-                else
-                    gui.Enabled = true
-                    mainFrame.Size = UDim2.new(0, 0, 0, 0)
-                    mainFrame:TweenSize(UDim2.new(0, 525, 0, 318), "Out", "Back", 0.5, true)
-                end
+                gui.Enabled = not gui.Enabled
             end
         end
     end)
